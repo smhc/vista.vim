@@ -42,6 +42,23 @@ function! vista#parser#ctags#ExtractTag(line, container) abort
   call s:Insert(a:container, scope, picked)
 endfunction
 
+function! vista#parser#ctags#FromJSON(line, container) abort
+  let line = json_decode(a:line)
+
+  let kind = line.kind
+
+  let picked = {'lnum': line.line, 'text': line.name }
+
+  if kind =~# '^f' || kind =~# '^m'
+    if has_key(line, 'signature')
+      let picked.signature = line.signature
+    endif
+    call add(t:vista.functions, picked)
+  endif
+
+  call s:Insert(a:container, kind, picked)
+endfunction
+
 function! vista#parser#ctags#TagFromJSON(line, container) abort
   let line = json_decode(a:line)
 
@@ -49,7 +66,7 @@ function! vista#parser#ctags#TagFromJSON(line, container) abort
 
   let picked = {'lnum': line.line, 'text': line.name }
 
-  if kind ==? 'function' || kind ==? 'func'
+  if kind =~# '^f'
     call add(t:vista.functions, picked)
   endif
 
