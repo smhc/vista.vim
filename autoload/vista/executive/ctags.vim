@@ -12,13 +12,6 @@ let s:support_json_format =
       \ len(filter(split(system(s:ctags.' --list-features'), '\n'), 'v:val =~ "^json"')) > 0
 
 let s:language_opt = {
-      \ 'ant'        : ['ant'        , 'pt']            ,
-      \ 'asm'        : ['asm'        , 'dlmt']          ,
-      \ 'aspperl'    : ['asp'        , 'fsv']           ,
-      \ 'aspvbs'     : ['asp'        , 'fsv']           ,
-      \ 'awk'        : ['awk'        , 'f']             ,
-      \ 'beta'       : ['beta'       , 'fsv']           ,
-      \ 'c'          : ['c'          , 'dgsutvf']       ,
       \ 'cpp'        : ['c++'        , 'nvdtcgsuf']     ,
       \ 'cs'         : ['c#'         , 'dtncEgsipm']    ,
       \ 'cobol'      : ['cobol'      , 'dfgpPs']        ,
@@ -75,7 +68,7 @@ function! s:GetLanguageSpecificOptition(filetype) abort
   let opt = ''
 
   try
-    let types = g:vista#types#uctags#{a:filetype}#info
+    let types = g:vista#types#uctags#{a:filetype}#
     let lang = types.lang
     let kinds = join(keys(types.kinds), '')
     let opt = printf('--language-force=%s --%s-kinds=%s', lang, lang, kinds)

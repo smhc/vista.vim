@@ -11,4 +11,4 @@ let s:types.kinds = {
     \ 'm': {'long' : 'maps',               'fold' : 1, 'stl' : 0}
     \ }
 
-let g:vista#types#uctags#vim#info = s:types
+let g:vista#types#uctags#vim# = s:types
